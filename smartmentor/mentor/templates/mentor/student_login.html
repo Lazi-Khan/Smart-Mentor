@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Mentor Student Login</title>
+</head>
+<body>
+    <h2>Smart Mentor - Student Login</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label>Student Email:</label>
+        <input type="email" name="email" required>
+        <button type="submit">Send OTP</button>
+    </form>
+</body>
+</html>

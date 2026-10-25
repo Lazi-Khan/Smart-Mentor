@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Student OTP - Smart Mentor</title>
+</head>
+<body>
+    <h2>Verify Your Email</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label>Enter 6-digit OTP:</label>
+        <input type="text" name="otp"
+               maxlength="6" pattern="[0-9]{6}" required>
+        <button type="submit">Verify OTP</button>
+    </form>
+
+    <p><a href="{% url 'student_login' %}">Back to Student Login</a></p>
+</body>
+</html>
