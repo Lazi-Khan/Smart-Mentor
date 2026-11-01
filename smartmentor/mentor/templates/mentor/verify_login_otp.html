@@ -1,26 +1,354 @@
-
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Verify Student OTP - Smart Mentor</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #071a52, #086972, #17b978);
+            background-size: 300% 300%;
+            animation: gradientMove 10s ease infinite;
+        }
+
+        /* Floating background shapes */
+        .circle {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.10);
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .circle.one {
+            width: 250px;
+            height: 250px;
+            top: -70px;
+            left: -60px;
+        }
+
+        .circle.two {
+            width: 180px;
+            height: 180px;
+            right: -40px;
+            bottom: -40px;
+            animation-delay: 2s;
+        }
+
+        .circle.three {
+            width: 90px;
+            height: 90px;
+            top: 15%;
+            right: 15%;
+            animation-delay: 4s;
+        }
+
+        /* OTP card */
+        .otp-card {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            padding: 42px 35px;
+            text-align: center;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+            animation: cardAppear 0.8s ease-out;
+        }
+
+        .logo {
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #086972, #17b978);
+            color: white;
+            font-size: 30px;
+            font-weight: 800;
+            box-shadow: 0 10px 25px rgba(8, 105, 114, 0.3);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        h1 {
+            color: #102a43;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #627d98;
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 10px 0 28px;
+        }
+
+        .otp-icon {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            color: #243b53;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        input[name="otp"] {
+            width: 100%;
+            padding: 16px 12px;
+            border: 1.5px solid #d9e2ec;
+            border-radius: 12px;
+            background: #f8fafc;
+            color: #102a43;
+            font-family: 'Poppins', sans-serif;
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: 12px;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[name="otp"]:focus {
+            border-color: #0b9b8a;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(23, 185, 120, 0.12);
+            transform: translateY(-2px);
+        }
+
+        input[name="otp"]::placeholder {
+            color: #bcccdc;
+            letter-spacing: 8px;
+        }
+
+        .message {
+            padding: 12px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            background: #fff4e5;
+            color: #9c5700;
+            border: 1px solid #ffe0b2;
+            font-size: 12px;
+            text-align: left;
+            overflow-wrap: anywhere;
+            animation: messageAppear 0.4s ease;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #086972, #17b978);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(8, 105, 114, 0.22);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(8, 105, 114, 0.35);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 23px;
+            color: #087f8c;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #17b978;
+            text-decoration: underline;
+        }
+
+        .secure-note {
+            margin-top: 22px;
+            color: #829ab1;
+            font-size: 11px;
+        }
+
+        .secure-note span {
+            color: #0b9b8a;
+            font-weight: 600;
+        }
+
+        .footer {
+            margin-top: 12px;
+            color: #9fb3c8;
+            font-size: 10px;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(35px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(10deg); }
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes messageAppear {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .otp-card {
+                padding: 32px 23px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+            .logo {
+                width: 66px;
+                height: 66px;
+                font-size: 26px;
+            }
+
+            input[name="otp"] {
+                font-size: 22px;
+                letter-spacing: 9px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h2>Verify Your Email</h2>
 
-    {% if messages %}
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    {% endif %}
+    <div class="circle one"></div>
+    <div class="circle two"></div>
+    <div class="circle three"></div>
 
-    <form method="post">
-        {% csrf_token %}
-        <label>Enter 6-digit OTP:</label>
-        <input type="text" name="otp"
-               maxlength="6" pattern="[0-9]{6}" required>
-        <button type="submit">Verify OTP</button>
-    </form>
+    <div class="otp-card">
 
-    <p><a href="{% url 'student_login' %}">Back to Student Login</a></p>
+        <div class="logo">SM</div>
+
+        <div class="otp-icon">&#128272;</div>
+
+        <h1>Verify Your Email</h1>
+
+        <p class="subtitle">
+            One more step to access Smart Mentor.<br>
+            Enter the 6-digit OTP sent to your email.
+        </p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="otp">ENTER YOUR 6-DIGIT OTP</label>
+
+                <input
+                    type="text"
+                    id="otp"
+                    name="otp"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                    placeholder="••••••"
+                    aria-label="Enter your 6-digit OTP"
+                    required
+                >
+            </div>
+
+            <button type="submit">Verify OTP &rarr;</button>
+        </form>
+
+        <a class="back-link" href="{% url 'student_login' %}">
+            &larr; Back to Student Login
+        </a>
+
+        <p class="secure-note">
+            &#128274; <span>Secure Verification</span>
+        </p>
+
+        <p class="footer">
+            &copy; 2026 Smart Mentor. All rights reserved.
+        </p>
+
+    </div>
+
 </body>
 </html>
+```
