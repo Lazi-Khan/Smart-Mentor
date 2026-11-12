@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Mentor | Student Login</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg,#312e81,#4f46e5,#7c3aed,#2563eb);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    overflow: hidden;
+}
+
+@keyframes gradient {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.circle {
+    position: fixed;
+    border-radius: 50%;
+    background: #ffffff18;
+    animation: float 8s infinite ease-in-out;
+    pointer-events: none;
+}
+
+.circle.one {
+    width: 180px;
+    height: 180px;
+    top: 10%;
+    left: 10%;
+}
+
+.circle.two {
+    width: 250px;
+    height: 250px;
+    bottom: 5%;
+    right: 8%;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%,100% {transform: translateY(0);}
+    50% {transform: translateY(-35px);}
+}
+
+.login-container {
+    position: relative;
+    width: 400px;
+    max-width: 92%;
+    padding: 42px 35px;
+    background: #ffffff;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 60px #0005;
+    animation: appear 1s ease;
+}
+
+@keyframes appear {
+    from {opacity: 0; transform: translateY(50px) scale(.9);}
+    to {opacity: 1; transform: translateY(0) scale(1);}
+}
+
+.logo {
+    font-size: 58px;
+    margin-bottom: 12px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%,100% {transform: translateY(0);}
+    50% {transform: translateY(-10px);}
+}
+
+h1 {
+    color: #312e81;
+    font-size: 27px;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    color: #777;
+    margin: 12px 0 28px;
+    font-size: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    outline: none;
+    margin-bottom: 20px;
+    font-size: 15px;
+    transition: .3s;
+}
+
+input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 10px #4f46e544;
+    transform: scale(1.02);
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg,#4f46e5,#7c3aed);
+    border: none;
+    border-radius: 9px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px #4f46e566;
+}
+
+.error {
+    color: #dc2626;
+    margin-bottom: 15px;
+}
+
+.footer {
+    margin-top: 28px;
+    font-size: 12px;
+    color: #999;
+}
+
+@media(max-width: 480px) {
+    .login-container {padding: 30px 22px;}
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="circle one"></div>
+<div class="circle two"></div>
+
+<div class="login-container">
+
+    <div class="logo">🎓</div>
+
+    <h1>SMART MENTOR</h1>
+
+    <p class="subtitle">
+        Student Academic Performance Portal
+    </p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="error">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Enter registered email"
+            required
+        >
+
+        <button type="submit">
+            Send Login OTP →
+        </button>
+    </form>
+
+    <div class="footer">
+        Secure Student Authentication<br>
+        © 2026 Smart Mentor
+    </div>
+
+</div>
+
+</body>
+</html>

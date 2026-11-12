@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Mentor | Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f4f9;
+    color: #333;
+    animation: fadePage 1s ease;
+}
+
+@keyframes fadePage {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    background: linear-gradient(180deg,#312e81,#4f46e5);
+    color: white;
+    padding: 30px 18px;
+    animation: slideSidebar .7s ease;
+    z-index: 2;
+}
+
+@keyframes slideSidebar {
+    from {transform: translateX(-100%);}
+    to {transform: translateX(0);}
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 45px;
+    font-size: 21px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    margin: 12px 0;
+    color: white;
+    text-decoration: none;
+    border-radius: 9px;
+    transition: .3s;
+}
+
+.sidebar a:hover {
+    background: #ffffff25;
+    padding-left: 25px;
+}
+
+.main {
+    margin-left: 250px;
+    padding: 30px;
+}
+
+.topbar {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px #0000000d;
+    margin-bottom: 30px;
+    animation: topbar .8s ease;
+}
+
+@keyframes topbar {
+    from {opacity: 0; transform: translateY(-25px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.topbar h2 {
+    color: #312e81;
+}
+
+.logout {
+    background: #dc2626;
+    color: white;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 8px;
+    transition: .3s;
+}
+
+.logout:hover {
+    background: #991b1b;
+    transform: scale(1.05);
+}
+
+.welcome {
+    margin-bottom: 28px;
+    animation: rise .8s ease;
+}
+
+.welcome h1 {
+    color: #312e81;
+    margin-bottom: 10px;
+}
+
+.welcome p {
+    color: #777;
+}
+
+@keyframes rise {
+    from {opacity: 0; transform: translateY(25px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(190px,1fr));
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 26px;
+    border-radius: 14px;
+    border-left: 5px solid #6366f1;
+    box-shadow: 0 4px 15px #0000000d;
+    opacity: 0;
+    animation: cardAppear .8s ease forwards;
+    transition: .3s;
+}
+
+.card:nth-child(1) {animation-delay: .2s;}
+.card:nth-child(2) {animation-delay: .4s;}
+.card:nth-child(3) {animation-delay: .6s;}
+
+@keyframes cardAppear {
+    from {opacity: 0; transform: translateY(35px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px #312e8122;
+}
+
+.card h3 {
+    color: #777;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 28px;
+    color: #312e81;
+    font-weight: bold;
+}
+
+.section {
+    background: white;
+    padding: 26px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px #0000000d;
+    animation: rise .9s ease;
+}
+
+.section h2 {
+    color: #312e81;
+    margin-bottom: 20px;
+}
+
+.item {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    transition: .3s;
+}
+
+.item:hover {
+    background: #f5f3ff;
+    padding-left: 23px;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.item a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.item a:hover {
+    color: #312e81;
+}
+
+.empty {
+    color: #999;
+    padding: 10px 0;
+}
+
+.status {
+    color: #16a34a;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.footer {
+    text-align: center;
+    color: #999;
+    padding: 25px;
+    font-size: 13px;
+}
+
+@media(max-width: 750px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar h2 {
+        margin-bottom: 15px;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .topbar {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>🎓 SMART MENTOR</h2>
+
+    <a href="{% url 'dashboard' %}">🏠 Dashboard</a>
+    <a href="#performance">📊 Academic Performance</a>
+    <a href="#files">📁 Excel Files</a>
+    <a href="#notifications">🔔 Notifications</a>
+
+</div>
+
+<div class="main">
+
+    <div class="topbar">
+        <h2>Student Dashboard</h2>
+        <a href="{% url 'logout' %}" class="logout">Logout</a>
+    </div>
+
+    <div class="welcome">
+        <h1>
+            Welcome,
+            {{ request.user.get_full_name|default:request.user.username }}
+            👋
+        </h1>
+
+        <p>Monitor your academic performance with Smart Mentor.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Student Account</h3>
+            <p>Active</p>
+        </div>
+
+        <div class="card">
+            <h3>Excel Files</h3>
+            <p>{{ excel_files|length }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Notifications</h3>
+            <p>{{ notifications|length }}</p>
+        </div>
+
+    </div>
+
+    <div class="section" id="performance">
+
+        <h2>📊 Academic Performance</h2>
+
+        <p>
+            Your academic performance information will appear
+            here when academic records are connected.
+        </p>
+
+    </div>
+
+    <div class="section" id="files">
+
+        <h2>📁 Uploaded Excel Files</h2>
+
+        {% for excel in excel_files %}
+
+            <div class="item">
+
+                <span>{{ excel.title }}</span>
+
+                {% if excel.file %}
+                    <a href="{{ excel.file.url }}" target="_blank">
+                        View / Download
+                    </a>
+                {% endif %}
+
+            </div>
+
+        {% empty %}
+
+            <p class="empty">No Excel files available.</p>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="section" id="notifications">
+
+        <h2>🔔 Student Notifications</h2>
+
+        {% for notification in notifications %}
+
+            <div class="item">
+
+                <div>
+                    <strong>{{ notification.message }}</strong>
+
+                    <p class="status">
+                        {{ notification.created_at|date:"d M Y, h:i A" }}
+                    </p>
+                </div>
+
+                {% if notification.is_read %}
+                    <span>Read</span>
+                {% else %}
+                    <span class="status">New</span>
+                {% endif %}
+
+            </div>
+
+        {% empty %}
+
+            <p class="empty">No notifications available.</p>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="footer">
+        © 2026 Smart Mentor | Student Academic Performance System
+    </div>
+
+</div>
+
+</body>
+</html>

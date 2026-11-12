@@ -11,6 +11,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('student-login/', views.student_login, name='student_login'),
+
     path('verify-otp/', views.verify_login_otp, name='verify_login_otp'),
-       path('dashboard/', views.dashboard, name='dashboard')
+
+    path('dashboard/', views.dashboard, name='dashboard'),
+
+    path('logout/', views.student_logout, name='logout'),
 ]

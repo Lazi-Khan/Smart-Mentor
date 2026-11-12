@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Mentor | OTP Verification</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(-45deg,#312e81,#4f46e5,#7c3aed,#2563eb);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.otp-container {
+    width: 400px;
+    max-width: 92%;
+    padding: 42px 35px;
+    background: white;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 50px #0005;
+    animation: appear .8s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(45px) scale(.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.icon {
+    font-size: 60px;
+    margin-bottom: 18px;
+    animation: lock 2s infinite;
+}
+
+@keyframes lock {
+    0%,100% {transform: rotate(0);}
+    25% {transform: rotate(-10deg);}
+    75% {transform: rotate(10deg);}
+}
+
+h1 {
+    color: #312e81;
+    margin-bottom: 15px;
+    font-size: 26px;
+}
+
+p {
+    color: #777;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.email {
+    color: #4f46e5;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+input {
+    width: 100%;
+    padding: 16px;
+    margin: 18px 0;
+    text-align: center;
+    font-size: 25px;
+    letter-spacing: 10px;
+    border: 1px solid #c7d2fe;
+    border-radius: 9px;
+    outline: none;
+    transition: .3s;
+}
+
+input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 10px #4f46e544;
+    transform: scale(1.03);
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(90deg,#4f46e5,#7c3aed);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px #4f46e566;
+}
+
+.error {
+    color: #dc2626;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 25px;
+    color: #4f46e5;
+    text-decoration: none;
+}
+
+.back:hover {
+    color: #312e81;
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="otp-container">
+
+    <div class="icon">🔐</div>
+
+    <h1>OTP Verification</h1>
+
+    <p>Enter the six-digit verification code sent to:</p>
+
+    <p class="email">
+        {{ request.session.login_email }}
+    </p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="error">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="otp"
+            placeholder="000000"
+            maxlength="6"
+            minlength="6"
+            pattern="[0-9]{6}"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            required
+        >
+
+        <button type="submit">
+            Verify & Login →
+        </button>
+    </form>
+
+    <a href="{% url 'student_login' %}" class="back">
+        ← Back to Student Login
+    </a>
+
+</div>
+
+</body>
+</html>

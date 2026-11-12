@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Mentor - Student Login</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(-45deg,#312e81,#4f46e5,#7c3aed,#2563eb);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.login-box {
+    width: 400px;
+    max-width: 92%;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 50px #0005;
+    animation: appear 1s ease;
+}
+
+@keyframes appear {
+    from {opacity: 0; transform: translateY(50px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.logo {
+    font-size: 60px;
+    margin-bottom: 15px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    50% {transform: translateY(-12px);}
+}
+
+h1 {
+    color: #312e81;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    color: #777;
+    margin-bottom: 28px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 10px #4f46e544;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg,#4f46e5,#7c3aed);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px #4f46e566;
+}
+
+.error {
+    color: red;
+    margin-bottom: 15px;
+}
+
+.footer {
+    margin-top: 25px;
+    color: #999;
+    font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <div class="logo">🎓</div>
+
+    <h1>SMART MENTOR</h1>
+
+    <p class="subtitle">
+        Student Academic Performance Portal
+    </p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="error">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="email"
+               name="email"
+               placeholder="Enter registered email"
+               required>
+
+        <button type="submit">
+            Send Login OTP →
+        </button>
+    </form>
+
+    <div class="footer">
+        Secure Student Authentication<br>
+        © 2026 Smart Mentor
+    </div>
+
+</div>
+
+</body>
+</html>
