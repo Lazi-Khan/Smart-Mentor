@@ -1,9 +1,11 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Smart Mentor - Student Login</title>
 
 <style>
@@ -11,7 +13,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 body {
@@ -19,132 +21,318 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(-45deg,#312e81,#4f46e5,#7c3aed,#2563eb);
-    background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
+    background: #090909;
+    padding: 25px;
 }
 
-@keyframes gradient {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-}
+/* MAIN CONTAINER */
 
-.login-box {
-    width: 400px;
-    max-width: 92%;
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 20px 50px #0005;
+.main-container {
+    width: 1100px;
+    max-width: 100%;
+    min-height: 620px;
+    display: flex;
+    overflow: hidden;
+    border-radius: 22px;
+    background: #151515;
+    border: 1px solid #a78332;
+    box-shadow: 0 20px 70px #000;
     animation: appear 1s ease;
 }
 
-@keyframes appear {
-    from {opacity: 0; transform: translateY(50px);}
-    to {opacity: 1; transform: translateY(0);}
+/* LEFT LOGIN SECTION */
+
+.login-section {
+    width: 45%;
+    padding: 55px 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(145deg, #181818, #080808);
 }
 
 .logo {
-    font-size: 60px;
-    margin-bottom: 15px;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    50% {transform: translateY(-12px);}
+    font-size: 55px;
+    text-align: center;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
 }
 
 h1 {
-    color: #312e81;
+    text-align: center;
+    font-size: 31px;
+    letter-spacing: 3px;
     margin-bottom: 12px;
+
+    background: linear-gradient(
+        90deg,
+        #98701c,
+        #fff0a6,
+        #d4af37,
+        #fff8dc
+    );
+
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: goldShine 5s linear infinite;
 }
 
 .subtitle {
-    color: #777;
-    margin-bottom: 28px;
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 14px;
+}
+
+.login-label {
+    color: #d4af37;
+    font-size: 13px;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
 
 input {
     width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
+    padding: 16px;
+    margin-bottom: 22px;
+    background: #252525;
+    color: white;
+    border: 1px solid #555;
     border-radius: 9px;
     outline: none;
+    transition: .3s;
 }
 
 input:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 10px #4f46e544;
+    border-color: #d4af37;
+    box-shadow: 0 0 12px #d4af3744;
 }
+
+input::placeholder {
+    color: #999;
+}
+
+/* GOLD BUTTON */
 
 button {
     width: 100%;
-    padding: 15px;
-    background: linear-gradient(90deg,#4f46e5,#7c3aed);
-    color: white;
+    padding: 16px;
+    background: linear-gradient(
+        100deg,
+        #99721d,
+        #f9df86,
+        #b58b2b
+    );
+    background-size: 200% auto;
+    color: #111;
     border: none;
     border-radius: 9px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    transition: .3s;
+    transition: .4s;
+    animation: buttonShine 4s linear infinite;
 }
 
 button:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px #4f46e566;
+    box-shadow: 0 8px 25px #d4af3755;
 }
 
 .error {
-    color: red;
+    color: #ff7777;
+    text-align: center;
     margin-bottom: 15px;
+    font-size: 13px;
 }
 
 .footer {
-    margin-top: 25px;
-    color: #999;
+    margin-top: 35px;
+    color: #777;
+    text-align: center;
     font-size: 12px;
+    line-height: 1.8;
+}
+
+/* RIGHT IMAGE SECTION */
+
+.image-section {
+    width: 55%;
+    min-height: 620px;
+    position: relative;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00000055,
+            transparent 70%
+        ),
+        background-image: url("{% static 'mentor/images/School.jpg' %}");
+        
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 45px;
+}
+
+.image-overlay {
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.image-overlay h2 {
+    font-size: 34px;
+    color: #f2d47b;
+    margin-bottom: 12px;
+}
+
+.image-overlay p {
+    color: #eeeeee;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* ANIMATIONS */
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes goldShine {
+    to {
+        background-position: -250% center;
+    }
+}
+
+@keyframes buttonShine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+
+    .main-container {
+        flex-direction: column;
+    }
+
+    .login-section,
+    .image-section {
+        width: 100%;
+    }
+
+    .login-section {
+        padding: 40px 25px;
+    }
+
+    .image-section {
+        min-height: 300px;
+        padding: 25px;
+    }
+
+    .image-overlay h2 {
+        font-size: 25px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="main-container">
 
-    <div class="logo">🎓</div>
+    <!-- LEFT LOGIN FORM -->
 
-    <h1>SMART MENTOR</h1>
+    <div class="login-section">
 
-    <p class="subtitle">
-        Student Academic Performance Portal
-    </p>
+        <div class="logo">🎓</div>
 
-    {% if messages %}
-        {% for message in messages %}
-            <p class="error">{{ message }}</p>
-        {% endfor %}
-    {% endif %}
+        <h1>SMART MENTOR</h1>
 
-    <form method="POST">
-        {% csrf_token %}
+        <p class="subtitle">
+            Student Academic Performance Portal
+        </p>
 
-        <input type="email"
-               name="email"
-               placeholder="Enter registered email"
-               required>
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
 
-        <button type="submit">
-            Send Login OTP →
-        </button>
-    </form>
+        <form method="POST">
+            {% csrf_token %}
 
-    <div class="footer">
-        Secure Student Authentication<br>
-        © 2026 Smart Mentor
+            <label class="login-label">
+                REGISTERED EMAIL ADDRESS
+            </label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter registered email"
+                required
+            >
+
+            <button type="submit">
+                Send Login OTP →
+            </button>
+
+        </form>
+
+        <div class="footer">
+            Secure Student Authentication<br>
+            © 2026 Smart Mentor
+        </div>
+
+    </div>
+
+    <!-- RIGHT BACKGROUND IMAGE -->
+
+    <div class="image-section">
+
+        <div class="image-overlay">
+
+            <h2>Learn. Grow. Succeed.</h2>
+
+            <p>
+                Track your academic performance,
+                manage your learning journey and
+                achieve your educational goals
+                with Smart Mentor.
+            </p>
+
+        </div>
+
     </div>
 
 </div>

@@ -147,12 +147,47 @@ div.breadcrumbs a{
    PAGE TITLE
 ========================================== */
 
-#content h1{
-    font-size:30px !important;
-    font-weight:800 !important;
-    color:#292477 !important;
 
-    margin-bottom:25px !important;
+/* Animated Gradient Heading */
+
+
+#content h1 {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    background: linear-gradient(
+        110deg,
+        #806000 0%,
+        #c49a28 20%,
+        #fff1a8 35%,
+        #d4af37 50%,
+        #fff8dc 60%,
+        #9c7415 80%,
+        #d4af37 100%
+    );
+
+    background-size: 250% auto;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: goldShine 19s linear infinite;
+
+    filter: drop-shadow(0px 2px 3px rgba(212,175,55,0.35));
+}
+
+/* Realistic Metallic Shine */
+
+@keyframes goldShine {
+    0% {
+        background-position: 200% center;
+    }
+
+    100% {
+        background-position: -200% center;
+    }
 }
 
 /* ==========================================
